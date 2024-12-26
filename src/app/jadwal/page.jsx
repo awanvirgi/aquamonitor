@@ -1,11 +1,12 @@
 'use client'
 import TableJadwal from "@/component/tableJadwal"
+import moment from "moment"
 import { useEffect, useState } from "react"
 
-const Page = () => {
+const Page = ({jadwal,time}) => {
     const [hide, setHide] = useState(true)
-    useEffect(() => {
-    }, [hide])
+    moment.locale("id")
+    moment(time).format("HH:mm")
 
     return (
         <div className="relative h-screen pt-16">

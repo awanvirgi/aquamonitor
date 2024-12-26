@@ -1,0 +1,10 @@
+        const unsubscribeSchedule = subscribeToScheduleData((newScheduleData) => {
+            if (newScheduleData.eventType === "UPDATE") {
+                const newData = newScheduleData.new
+                setScheduleData(prevData =>
+                    prevData.map(item =>
+                        item.id === newData.id ? updatedItem : item
+                    )
+                );
+            }
+        });
