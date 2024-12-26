@@ -4,55 +4,14 @@ import { useEffect, useState } from 'react';
 import { subscribeToSensorData, subscribeToScheduleData, fetchSensorData, fetchScheduleData } from '@/apihandler/api'; // Import API handler
 import Gauge from '@/component/guage';
 import Clock from '@/component/clock';
+import { useSensorProvider } from '@/context/sensorProvider';
+import { useScheduleProvider } from '@/context/scheduleProvider';
 
 
 const Page = () => {
-    const [sensorData, setSensorData] = useState([]);
-    const [scheduleData, setScheduleData] = useState([]);
+    const {sensorData} = useSensorProvider()
+    const {scheduleData} = useScheduleProvider()
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const initialSensorData = await fetchSensorData();
-            const initialScheduleData = await fetchScheduleData();
-            setSensorData(initialSensorData);
-            setScheduleData(initialScheduleData);
-        };
-
-        fetchData();
-
-        const unsubscribeSensor = subscribeToSensorData((newSensorData) => {
-            if (newSensorData.eventType === "UPDATE") {
-                const newData = newSensorData.new
-                setSensorData(prevData =>
-                    prevData.map(item =>
-                        item.id === newData.id ? newData : item
-                    )
-                );
-            } else if(newSensorData.eventType === "INSERT"){
-                const newData = newSensorData.new
-                setSensorData(prevData =>[...prevData,newData]);
-            }
-        });
-
-        const unsubscribeSchedule = subscribeToScheduleData((newScheduleData) => {
-            if (newScheduleData.eventType === "UPDATE") {
-                const newData = newScheduleData.new
-                setScheduleData(prevData =>
-                    prevData.map(item =>
-                        item.id === newData.id ? newData : item
-                    )
-                );
-            } else if(newScheduleData.eventType === "INSERT") {
-                const newData = newScheduleData.new
-                setScheduleData(prevData => [...prevData,newData]);
-            }
-        });
-
-        return () => {
-            unsubscribeSensor();
-            unsubscribeSchedule();
-        };
-    }, []);
     useEffect(() => {
         console.log(sensorData)
         console.log(scheduleData)

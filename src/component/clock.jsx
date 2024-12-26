@@ -22,25 +22,24 @@ const Clock = ({ scheduleData }) => {
         return () => clearInterval(interval);
     }, [scheduleData]);
 
-    // Fungsi untuk mendapatkan jadwal terdekat
     const getNearestSchedule = (data) => {
         if (!data || data.length === 0) return null;
 
-        const now = moment(); // Waktu sekarang
+        const now = moment();
         let closest = null;
         let minDifference = Infinity;
 
         data.forEach((item) => {
-            const itemTime = moment.utc(item.time).local().format("HH:mm") // Konversi waktu jadwal
-            const diff = moment(itemTime, "HH:mm").diff(now, 'minutes') // Selisih dalam milidetik
+            const itemTime = moment.utc(item.time).local().format("HH:mm")
+            const diff = moment(itemTime, "HH:mm").diff(now, 'minutes')
 
             if (diff >= 0 && diff < minDifference) {
                 minDifference = diff;
-                closest = item; // Simpan jadwal dengan selisih terkecil
+                closest = item;
             }
         });
 
-        return closest;
+        return false;
     };
 
     if (!time) return null;
@@ -48,12 +47,12 @@ const Clock = ({ scheduleData }) => {
     return (
         <div className="shadow-lg p-6 rounded-lg mb-4">
             <div>
-                <div className="mb-5">
+                <div className="">
                     <h3 className="font-semibold text-center mb-2">Waktu Pemberian Pakan Selanjutnya</h3>
                     <div className="h-[2px] w-full bg-black rounded-lg"></div>
-                    <div className="py-4 flex items-center justify-center">
-                        <h1 className="text-5xl font-bold text-main">
-                            {nearestSchedule ? moment(nearestSchedule.time).format("HH:mm") : "Tidak Ada Jadwal"}
+                    <div className="py-6 flex items-center justify-center">
+                        <h1 className={` font-bold text-main ${nearestSchedule?"text-5xl":"text-xl"}`}>
+                            {nearestSchedule ? moment(nearestSchedule.time).format("HH:mm") : "Tidak ada Jadwal"}
                         </h1>
                     </div>
                 </div>
