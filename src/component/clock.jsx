@@ -39,7 +39,7 @@ const Clock = ({ scheduleData }) => {
             }
         });
 
-        return false;
+        return closest; 
     };
 
     if (!time) return null;

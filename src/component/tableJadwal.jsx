@@ -4,7 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import moment from "moment"
 
 const TableJadwal = ({ setHide }) => {
-    const { scheduleData, setScheduleData } = useScheduleProvider()
+    const { scheduleData, setScheduleData,editSchedule,setEditSchedule } = useScheduleProvider()
+    const editData = (data) =>{
+        setHide(false)
+        setEditSchedule(data)
+    }
     return (
         <table className="table-auto w-full">
             <thead className="border-[1px] border-slate-400 bg-main text-white">
@@ -23,7 +27,7 @@ const TableJadwal = ({ setHide }) => {
                             <td className="p-2">
                                 <div className="flex gap-1 justify-center">
                                     <button className="bg-red-600 aspect-square rounded p-1 w-10 text-white"><FontAwesomeIcon className="text-lg" icon={faTrash} /></button>
-                                    <button className="bg-blue-600 aspect-square rounded p-1 w-10 text-white" onClick={() => setHide(false)}><FontAwesomeIcon className="text-lg" icon={faPen} /></button>
+                                    <button className="bg-blue-600 aspect-square rounded p-1 w-10 text-white" onClick={() => editData([moment(item.time).format("HH:mm"),item.volume,item.id])}><FontAwesomeIcon className="text-lg" icon={faPen} /></button>
                                 </div>
                             </td>
                         </tr>

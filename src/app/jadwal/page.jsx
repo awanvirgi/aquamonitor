@@ -1,30 +1,49 @@
 'use client'
 import TableJadwal from "@/component/tableJadwal"
+import { useScheduleProvider } from "@/context/scheduleProvider"
 import moment from "moment"
 import { useEffect, useState } from "react"
 
-const Page = ({jadwal,time}) => {
+const Page = ({ jadwal, time }) => {
     const [hide, setHide] = useState(true)
+    const [inputTime, setInputTime] = useState("");
+    const [inputVolume, setInputVolume] = useState("");
+    const { editSchedule, setEditSchedule } = useScheduleProvider()
+    useEffect(() => {
+        setInputTime(editSchedule[0] || "")
+        setInputVolume(editSchedule[1] || "")
+    }, [editSchedule])
+    const handleTimeChange = (e) => {
+        setInputTime(e.target.value);
+    }
+    const handleVolumeChange = (e) => {
+        setInputVolume(e.target.value);
+    };
+    const close = () => {
+        setHide(true)
+        setInputTime("")
+        setInputVolume("")
+        setEditSchedule([])
+    }
     moment.locale("id")
     moment(time).format("HH:mm")
-
     return (
         <div className="relative h-screen pt-16">
             <div className={`${hide ? "hidden" : "block"} shadow-lg p-6 rounded-lg mb-4 absolute w-10/12 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  bg-white`}>
                 <div className="flex justify-between text-center text-2xl font-bold mb-4">
                     <div></div>
                     <p>Atur Jadwal</p>
-                    <div className="h-4 aspect-square" onClick={() => setHide(true)}>x</div>
+                    <div className="h-4 aspect-square" onClick={()=>close()}>x</div>
                 </div>
                 <label htmlFor="time" className="mb-2">
                     <p className="font-medium text-lg mb-2">Jam</p>
-                    <input type="time" id="waktu" name="waktu" className="mb-4 w-full border-[1px] border-slate-400 px-4 py-2 rounded-md" />
+                    <input value={inputTime} onChange={handleTimeChange} type="time" id="waktu" name="waktu" className="mb-4 w-full border-[1px] border-slate-400 px-4 py-2 rounded-md" />
                 </label>
                 <label htmlFor="volume" className="mb-2">
                     <p className="font-medium text-lg mb-2">Jam</p>
-                    <select id="volume" name="volume" className="mb-4 w-full border-[1px] font-medium border-slate-400 px-4 py-2 rounded-md">
-                        <option value="">Besar</option>
-                        <option value="">Kecil</option>
+                    <select id="volume" value={inputVolume} onChange={handleVolumeChange} name="volume" className="mb-4 w-full border-[1px] font-medium border-slate-400 px-4 py-2 rounded-md">
+                        <option value="Besar">Besar</option>
+                        <option value="Kecil">Kecil</option>
                     </select>
                 </label>
                 <div className="flex justify-center mt-2">
@@ -42,4 +61,5 @@ const Page = ({jadwal,time}) => {
         </div>
     )
 }
+
 export default Page
