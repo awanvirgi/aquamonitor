@@ -3,10 +3,11 @@ import { faPen, faPencilRuler, faTrash } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import moment from "moment"
 
-const TableJadwal = ({ setHide }) => {
-    const { scheduleData, setScheduleData,editSchedule,setEditSchedule } = useScheduleProvider()
+const TableJadwal = ({ setHide,setEdit }) => {
+    const { scheduleData,setEditSchedule,deleteSchedule } = useScheduleProvider()
     const editData = (data) =>{
         setHide(false)
+        setEdit(true)
         setEditSchedule(data)
     }
     return (
@@ -26,7 +27,7 @@ const TableJadwal = ({ setHide }) => {
                             <td className="p-2 text-center font-medium">{item.volume}</td>
                             <td className="p-2">
                                 <div className="flex gap-1 justify-center">
-                                    <button className="bg-red-600 aspect-square rounded p-1 w-10 text-white"><FontAwesomeIcon className="text-lg" icon={faTrash} /></button>
+                                    <button className="bg-red-600 aspect-square rounded p-1 w-10 text-white" onClick={()=>deleteSchedule(item.id)}><FontAwesomeIcon className="text-lg" icon={faTrash} /></button>
                                     <button className="bg-blue-600 aspect-square rounded p-1 w-10 text-white" onClick={() => editData([moment(item.time).format("HH:mm"),item.volume,item.id])}><FontAwesomeIcon className="text-lg" icon={faPen} /></button>
                                 </div>
                             </td>

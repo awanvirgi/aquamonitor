@@ -1,14 +1,13 @@
 'use client'
 import TableJadwal from "@/component/tableJadwal"
 import { useScheduleProvider } from "@/context/scheduleProvider"
-import moment from "moment"
 import { useEffect, useState } from "react"
 
 const Page = ({ jadwal, time }) => {
     const [hide, setHide] = useState(true)
-    const [inputTime, setInputTime] = useState("");
-    const [inputVolume, setInputVolume] = useState("");
-    const { editSchedule, setEditSchedule } = useScheduleProvider()
+    const [edit, setEdit] = useState(false)
+
+    const { editSchedule, setEditSchedule, addSchedule,updateSchedule, inputVolume, setInputVolume, inputTime, setInputTime } = useScheduleProvider()
     useEffect(() => {
         setInputTime(editSchedule[0] || "")
         setInputVolume(editSchedule[1] || "")
@@ -25,15 +24,20 @@ const Page = ({ jadwal, time }) => {
         setInputVolume("")
         setEditSchedule([])
     }
-    moment.locale("id")
-    moment(time).format("HH:mm")
+    const handleConfirm = async() => {
+        setHide(true)
+        if (edit) {
+            return await updateSchedule()
+        }
+        return await addSchedule()
+    }
     return (
         <div className="relative h-screen pt-16">
             <div className={`${hide ? "hidden" : "block"} shadow-lg p-6 rounded-lg mb-4 absolute w-10/12 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  bg-white`}>
                 <div className="flex justify-between text-center text-2xl font-bold mb-4">
                     <div></div>
                     <p>Atur Jadwal</p>
-                    <div className="h-4 aspect-square" onClick={()=>close()}>x</div>
+                    <div className="h-4 aspect-square" onClick={() => close()}>x</div>
                 </div>
                 <label htmlFor="time" className="mb-2">
                     <p className="font-medium text-lg mb-2">Jam</p>
@@ -47,16 +51,16 @@ const Page = ({ jadwal, time }) => {
                     </select>
                 </label>
                 <div className="flex justify-center mt-2">
-                    <button className="bg-main px-6 py-2 rounded text-white">Konfirmasi</button>
+                    <button className="bg-main px-6 py-2 rounded text-white" onClick={handleConfirm}>Konfirmasi</button>
                 </div>
             </div>
             <div className="p-6">
                 <div className="w-full flex justify-between items-center">
                     <p className="text-lg font-semibold">Jadwal Pemberian Pakan</p>
-                    <button className="bg-main hover:bg-red-400 p-2 rounded-md font-medium text-white" onClick={() => setHide(false)}>Tambah +</button>
+                    <button className="bg-main hover:bg-red-400 p-2 rounded-md font-medium text-white" onClick={() => { setHide(false); setEdit(false) }}>Tambah +</button>
                 </div>
                 <div className="h-1 w-full bg-black my-2 rounded-sm"></div>
-                <TableJadwal setHide={(n) => setHide(n)} />
+                <TableJadwal setHide={(n) => setHide(n) } setEdit={(n)=>setEdit(n)} />
             </div>
         </div>
     )

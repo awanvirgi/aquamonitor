@@ -1,13 +1,17 @@
 'use client'
 
-const { fetchScheduleData, subscribeToScheduleData } = require("@/apihandler/api");
+import moment from "moment";
+
+const { fetchScheduleData, subscribeToScheduleData, insertScheduleData, updateScheduleData, deleteScheduleData } = require("@/apihandler/api");
 const { createContext, useState, useEffect, useContext } = require("react")
 
 const ScheduleContext = createContext(undefined)
 
 const ScheduleProvider = ({ children }) => {
     const [scheduleData, setScheduleData] = useState([]);
-    const [editSchedule,setEditSchedule] = useState([]);
+    const [editSchedule, setEditSchedule] = useState([]);
+    const [inputTime, setInputTime] = useState("");
+    const [inputVolume, setInputVolume] = useState("");
     const fetchData = async () => {
         const initialScheduleData = await fetchScheduleData();
         setScheduleData(initialScheduleData);
@@ -26,19 +30,51 @@ const ScheduleProvider = ({ children }) => {
             setScheduleData(prevData => [...prevData, newData]);
         }
     });
-    useEffect(()=>{
+    const convertTimestampz = (timeData) => {
+        const combined = `2025-01-01 ${timeData}`
+        const result = moment(combined, "YYYY-MM-DD HH:mm").utc().format("YYYY-MM-DD HH:mm:ssz")
+        return result
+    }
+    const addSchedule = async () => {
+        const convertTime = convertTimestampz(inputTime)
+        await insertScheduleData(convertTime, inputVolume)
+        // fetchData()
+        // return () => {
+        //     unsubscribeSchedule();
+        // }
+    }
+    const updateSchedule = async () => {
+        const convertTime = convertTimestampz(inputTime)
+        await updateScheduleData(convertTime, inputVolume, editSchedule[2])
+        // fetchData()
+        // return () => {
+        //     unsubscribeSchedule();
+        // }
+    }
+    const deleteSchedule = async (id) => {
+        await deleteScheduleData(id)
+        // fetchData()
+        // return () => {
+        //     unsubscribeSchedule();
+        // }
+    }
+    useEffect(() => {
         fetchData()
-        return()=>{
+        return () => {
             unsubscribeSchedule()
         }
-    },[])
-    return(
-        <ScheduleContext.Provider value={{scheduleData,setScheduleData,editSchedule,setEditSchedule  }}>
+    }, [])
+
+    return (
+        <ScheduleContext.Provider value={{
+            scheduleData, setScheduleData, editSchedule, setEditSchedule,deleteSchedule,
+            addSchedule, updateSchedule, inputTime, setInputTime, inputVolume, setInputVolume
+        }}>
             {children}
         </ScheduleContext.Provider>
     )
 }
 export default ScheduleProvider;
-export function useScheduleProvider(){
+export function useScheduleProvider() {
     return useContext(ScheduleContext)
 }
