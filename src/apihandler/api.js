@@ -110,7 +110,6 @@ export const updateScheduleData = async (timeData, volumeData, id) => {
 }
 
 export const deleteScheduleData = async (id) => {
-    console.log("test")
     const { error } = await supabase
         .from('feeder_schedule')
         .delete()
