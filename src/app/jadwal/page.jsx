@@ -37,7 +37,7 @@ const Page = ({ jadwal, time }) => {
                 <div className="flex justify-between text-center text-2xl font-bold mb-4">
                     <div></div>
                     <p>Atur Jadwal</p>
-                    <div className="h-4 aspect-square" onClick={() => close()}>x</div>
+                    <div className=" h-5 align-text-top flex justify-center rounded-sm hover:text-white hover:bg-red-400 leading-3 aspect-square cursor-pointer" onClick={() => close()}>x</div>
                 </div>
                 <label htmlFor="time" className="mb-2">
                     <p className="font-medium text-lg mb-2">Jam</p>
@@ -52,7 +52,7 @@ const Page = ({ jadwal, time }) => {
                     </select>
                 </label>
                 <div className="flex justify-center mt-2">
-                    <button className="bg-main px-6 py-2 rounded text-white" onClick={handleKonfirm}>Konfirmasi</button>
+                    <button className="bg-main px-6 py-2 rounded font-semibold text-white" onClick={handleKonfirm}>Konfirmasi</button>
                 </div>
             </div>
             <div className="px-6 pt-24">
