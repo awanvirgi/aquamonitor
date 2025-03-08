@@ -45,7 +45,7 @@ const Clock = ({ scheduleData }) => {
     if (!time) return null;
 
     return (
-        <div className="shadow-lg p-6 rounded-lg mb-4">
+        <div className="shadow-lg p-6 rounded-lg mb-4 w-full">
             <div>
                 <div className="">
                     <h3 className="font-semibold text-center mb-2">Waktu Pemberian Pakan Selanjutnya</h3>

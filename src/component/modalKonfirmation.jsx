@@ -24,7 +24,7 @@ const ModalKonfirmasi = ({ hideModal, setHideModal, action, setHide,id }) => {
         return setHideModal(true);
     }
     return (
-        <div className={`absolute z-50 h-screen w-screen bg-black bg-opacity-85 z-100 text-white ${hideModal ? "hidden" : "block"} `}>
+        <div className={`absolute lg:fixed lg:left-0 z-50 h-screen w-full bg-black bg-opacity-85 z-100 text-white ${hideModal ? "hidden" : "block"} `}>
             <div className="w-full max-w-96 bg-white text-black text-center rounded border-2 p-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <h4 className="text-2xl font-semibold my-10">Yakin Ingin {aksi}???</h4>
                 <div className="flex justify-around gap-4 text-lg mb-2">

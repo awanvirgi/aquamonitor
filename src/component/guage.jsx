@@ -13,7 +13,7 @@ const Gauge = ({ data, max, ideal, satuan, nama }) => {
         <div className={` ${setWarning() ? "bg-red-50" : "bg-slate-50"}  shadow-lg p-6 rounded-lg mb-4`}>
             <div className="flex items-center justify-center">
                 <svg
-                    className="flex-1 w-full"
+                    className="flex-1 h-full max-h-56 w-full max-w-56 "
                     viewBox="0 0 120 120"
                     xmlns="http://www.w3.org/2000/svg"
                 >

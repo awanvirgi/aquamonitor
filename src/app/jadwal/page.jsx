@@ -27,7 +27,7 @@ const Page = ({ jadwal, time }) => {
         setEditSchedule([])
     }
     return (
-        <div className="relative h-screen">
+        <div className="relative h-screen w-full max-w-96 ">
             <ModalKonfirmasi hideModal={hideModal} setHideModal={setHideModal} action={action} setHide={(n) => setHide(n)} id={id}/>
             <div className={`${hide ? "hidden" : "block"} shadow-lg p-6 rounded-lg mb-4  absolute w-10/12 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  bg-white z-40 `}>
                 <div className="flex justify-between text-center text-2xl font-bold mb-4 mt-16">

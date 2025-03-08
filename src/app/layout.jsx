@@ -14,12 +14,14 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={`antialiased h-screen relative`}>
                 <Header />
-                <div className="transform delay-100">
-                    <ScheduleProvider>
-                        <SensorProvider>
-                            {children}
-                        </SensorProvider>
-                    </ScheduleProvider>
+                <div className="w-screen relative lg:flex lg:flex-row-reverse">
+                    <div className="transform delay-100 flex justify-center lg:flex-grow">
+                        <ScheduleProvider>
+                            <SensorProvider>
+                                {children}
+                            </SensorProvider>
+                        </ScheduleProvider>
+                    </div>
                 </div>
                 <Navbar />
             </body>
