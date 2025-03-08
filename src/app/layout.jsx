@@ -1,6 +1,8 @@
 import Navbar from "@/component/navbar";
 import "./globals.css";
 import Header from "@/component/header";
+import SensorProvider from "@/context/sensorProvider";
+import ScheduleProvider from "@/context/scheduleProvider";
 
 export const metadata = {
     title: "Home-Dashboard",
@@ -12,8 +14,14 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={`antialiased h-screen relative`}>
                 <Header />
-                <div className="transform delay-100">
-                        {children}
+                <div className="w-screen relative lg:flex lg:flex-row-reverse">
+                    <div className="transform delay-100 flex justify-center lg:flex-grow">
+                        <ScheduleProvider>
+                            <SensorProvider>
+                                {children}
+                            </SensorProvider>
+                        </ScheduleProvider>
+                    </div>
                 </div>
                 <Navbar />
             </body>

@@ -47,42 +47,75 @@ export const subscribeToScheduleData = (callback) => {
         .on(
             'postgres_changes',
             {
-                event: 'INSERT',
+                event: 'DELETE',
                 schema: 'public',
                 table: 'feeder_schedule',
             },
             (payload) => callback(payload)
         )
-        .subscribe();
-
+        .on(
+            'postgres_changes',
+            {
+                event: 'INSERT',
+                schema: 'public',
+                table: 'feeder_schedule',
+            },
+            (payload) => callback(payload)
+        ).subscribe();
     return () => {
         changes.unsubscribe();
     };
 };
 
 export const fetchSensorData = async () => {
-    try {
-        const { data: sensor, error } = await supabase
-            .from('sensor')
-            .select('*');
-        if (error) throw error;
-        return sensor;
-    } catch (err) {
-        console.error(err);
-    }
+    const { data: sensor, error } = await supabase
+        .from('sensor')
+        .select('*');
+    if (error) throw error;
+    return sensor;
+
 };
 
 export const fetchScheduleData = async () => {
-    try {
-        const { data: feeder_schedule, error } = await supabase
-            .from('feeder_schedule')
-            .select('*');
-        if (error) throw error;
-        return feeder_schedule;
-    } catch (err) {
-        console.error(err);
-    }
+    const { data: feeder_schedule, error } = await supabase
+        .from('feeder_schedule')
+        .select('*')
+        .order('time', { ascending: true })
+    if (error) throw error;
+    return feeder_schedule;
 };
+
+export const insertScheduleData = async (timeData, volumeData) => {
+    const { data, error } = await supabase
+        .from('feeder_schedule')
+        .insert([
+            { time: timeData, volume: volumeData },
+        ])
+        .select()
+    if (error) throw error;
+
+}
+export const updateScheduleData = async (timeData, volumeData, id) => {
+    try {
+        const { error } = await supabase
+            .from('feeder_schedule')
+            .update({
+                time: timeData,
+                volume: volumeData
+            })
+            .eq('id', id)
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const deleteScheduleData = async (id) => {
+    const { error } = await supabase
+        .from('feeder_schedule')
+        .delete()
+        .eq('id', id)
+    if (error) throw error
+}
 
 
 
