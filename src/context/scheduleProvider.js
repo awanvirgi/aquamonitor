@@ -38,6 +38,8 @@ const ScheduleProvider = ({ children }) => {
     const addSchedule = async () => {
         const convertTime = convertTimestampz(inputTime)
         await insertScheduleData(convertTime, inputVolume)
+        setInputTime("");
+        setInputVolume("");
         // fetchData()
         // return () => {
         //     unsubscribeSchedule();
@@ -46,6 +48,8 @@ const ScheduleProvider = ({ children }) => {
     const updateSchedule = async () => {
         const convertTime = convertTimestampz(inputTime)
         await updateScheduleData(convertTime, inputVolume, editSchedule[2])
+        setInputTime("");
+        setInputVolume("");
         // fetchData()
         // return () => {
         //     unsubscribeSchedule();

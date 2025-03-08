@@ -9,7 +9,7 @@ const Page = ({ jadwal, time }) => {
     const [action, setAction] = useState("")
     const [hideModal, setHideModal] = useState(true);
     const [id,setId] = useState(null)
-    const { editSchedule, setEditSchedule, addSchedule, updateSchedule, deleteSchedule, inputVolume, setInputVolume, inputTime, setInputTime } = useScheduleProvider()
+    const { editSchedule, setEditSchedule, inputVolume, setInputVolume, inputTime, setInputTime } = useScheduleProvider()
     useEffect(() => {
         setInputTime(editSchedule[0] || "")
         setInputVolume(editSchedule[1] || "")
@@ -26,18 +26,22 @@ const Page = ({ jadwal, time }) => {
         setInputVolume("")
         setEditSchedule([])
     }
+    const handleKonfirm = () =>{
+        if(inputTime == "" || inputVolume == "")return alert("Masih ada Input yang Kosong")
+            return setHideModal(false)
+    }
     return (
         <div className="relative h-screen w-full max-w-96 ">
             <ModalKonfirmasi hideModal={hideModal} setHideModal={setHideModal} action={action} setHide={(n) => setHide(n)} id={id}/>
-            <div className={`${hide ? "hidden" : "block"} shadow-lg p-6 rounded-lg mb-4  absolute w-10/12 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  bg-white z-40 `}>
-                <div className="flex justify-between text-center text-2xl font-bold mb-4 mt-16">
+            <div className={`${hide ? "hidden" : "block"} shadow-lg p-6 rounded-lg mb-4  absolute w-10/12 left-1/2 top-[40%] -translate-x-1/2 -translate-y-1/2  bg-white z-40 `}>
+                <div className="flex justify-between text-center text-2xl font-bold mb-4">
                     <div></div>
                     <p>Atur Jadwal</p>
                     <div className="h-4 aspect-square" onClick={() => close()}>x</div>
                 </div>
                 <label htmlFor="time" className="mb-2">
                     <p className="font-medium text-lg mb-2">Jam</p>
-                    <input value={inputTime} onChange={handleTimeChange} type="time" id="waktu" name="waktu" className="mb-4 w-full border-[1px] border-slate-400 px-4 py-2 rounded-md" />
+                    <input value={inputTime} onChange={handleTimeChange} type="time" id="waktu" name="waktu" className="mb-4 w-full border-[1px] border-slate-400 px-4 py-2 rounded-md" required/>
                 </label>
                 <label htmlFor="volume" className="mb-2">
                     <p className="font-medium text-lg mb-2">Volume</p>
@@ -48,7 +52,7 @@ const Page = ({ jadwal, time }) => {
                     </select>
                 </label>
                 <div className="flex justify-center mt-2">
-                    <button className="bg-main px-6 py-2 rounded text-white" onClick={() => setHideModal(false)}>Konfirmasi</button>
+                    <button className="bg-main px-6 py-2 rounded text-white" onClick={handleKonfirm}>Konfirmasi</button>
                 </div>
             </div>
             <div className="px-6 pt-24">

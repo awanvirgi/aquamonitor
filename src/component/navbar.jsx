@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGauge, faCalendar, faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faGauge, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
     const path = usePathname()
