@@ -1,6 +1,7 @@
 'use client';
 
 import moment from "moment";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Clock = ({ scheduleData }) => {
@@ -39,7 +40,7 @@ const Clock = ({ scheduleData }) => {
             }
         });
 
-        return closest; 
+        return closest;
     };
 
     if (!time) return null;
@@ -51,7 +52,7 @@ const Clock = ({ scheduleData }) => {
                     <h3 className="font-semibold text-center mb-2">Waktu Pemberian Pakan Selanjutnya</h3>
                     <div className="h-[2px] w-full bg-black rounded-lg"></div>
                     <div className="py-6 flex items-center justify-center">
-                        <h1 className={` font-bold text-main ${nearestSchedule?"text-5xl":"text-xl"}`}>
+                        <h1 className={` font-bold text-main ${nearestSchedule ? "text-5xl" : "text-xl"}`}>
                             {nearestSchedule ? moment(nearestSchedule.time).format("HH:mm") : "Tidak ada Jadwal"}
                         </h1>
                     </div>
@@ -62,7 +63,9 @@ const Clock = ({ scheduleData }) => {
                 </div>
             </div>
             <div className="flex justify-center">
-                <button className="bg-main px-8 py-2 font-medium text-white rounded-lg">Atur Jadwal</button>
+                <Link href={"/jadwal"}>
+                    <button className="bg-main px-8 py-2 font-medium text-white rounded-lg">Atur Jadwal</button>
+                </Link>
             </div>
         </div>
     );
