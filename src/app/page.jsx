@@ -18,8 +18,8 @@ const Page = () => {
     return (
         <div className="pt-[70px] w-fit flex-col">
             <div className="px-6 flex-1 flex  w-fit">
-                <Gauge data={temp_data.toFixed(1)} max={50} ideal={[26, 32]} satuan={"°C"} nama={"Suhu"} />
-                <Gauge data={ph_data} max={14} ideal={[6, 9]} nama={"Kadar pH"} />
+                <Gauge data={temp_data.toFixed(1)} max={50} ideal={[27, 29]} satuan={"°C"} nama={"Suhu"} />
+                <Gauge data={ph_data} max={14} ideal={[7, 8]} nama={"Kadar pH"} />
             </div>
             <div className="px-6 flex-1 ">
                 <Clock scheduleData={scheduleData} />
