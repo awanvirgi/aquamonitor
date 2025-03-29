@@ -9,6 +9,9 @@ const Gauge = ({ data, max, ideal, satuan, nama }) => {
     const setWarning = () => {
         return data <= ideal[0] || data >= ideal[1] ? true : false
     }
+    const checkHardware = () =>{
+        return data == 0 ? true : false;
+    }
     return (
         <div className={` ${setWarning() ? "bg-red-50" : "bg-slate-50"}  shadow-lg p-6 rounded-lg mb-4`}>
             <div className="flex items-center justify-center">
@@ -52,7 +55,7 @@ const Gauge = ({ data, max, ideal, satuan, nama }) => {
                 <h1 className={`mt-2 text-center text-lg font-bold ${setWarning() ? "text-red-500" : "text-black"} `}>{nama}</h1>
                 <h3 className="text-[#ef4444] text-center mt-2 text-xs font-light">
                     {
-                        (setWarning()) ? `⚠️${nama} tidak sesuai dengan idealnya` : ``
+                        (checkHardware())?`⚠️Ada Masalah Dengan Perangkat Keras`: (setWarning()) ? `⚠️${nama} tidak sesuai dengan idealnya` : ``
                     }
                 </h3>
 
