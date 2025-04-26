@@ -12,14 +12,14 @@ const Page = ({ jadwal, time }) => {
     const { editSchedule, setEditSchedule, inputVolume, setInputVolume, inputTime, setInputTime } = useScheduleProvider()
     useEffect(() => {
         setInputTime(editSchedule[0] || "")
-        setInputVolume(editSchedule[1] || "")
+        // setInputVolume(editSchedule[1] || "")
     }, [editSchedule])
     const handleTimeChange = (e) => {
         setInputTime(e.target.value);
     }
-    const handleVolumeChange = (e) => {
-        setInputVolume(e.target.value);
-    };
+    // const handleVolumeChange = (e) => {
+    //     setInputVolume(e.target.value);
+    // };
     const close = () => {
         setHide(true)
         setInputTime("")
@@ -43,14 +43,14 @@ const Page = ({ jadwal, time }) => {
                     <p className="font-medium text-lg mb-2">Jam</p>
                     <input value={inputTime} onChange={handleTimeChange} type="time" id="waktu" name="waktu" className="mb-4 w-full border-[1px] border-slate-400 px-4 py-2 rounded-md" required/>
                 </label>
-                <label htmlFor="volume" className="mb-2">
+                {/* <label htmlFor="volume" className="mb-2">
                     <p className="font-medium text-lg mb-2">Volume</p>
                     <select id="volume" value={inputVolume} onChange={handleVolumeChange} name="volume" className="mb-4 w-full border-[1px] font-medium border-slate-400 px-4 py-2 rounded-md">
                         <option defaultChecked value="">Masukan Volume</option>
                         <option value="Besar">Besar</option>
                         <option value="Kecil">Kecil</option>
                     </select>
-                </label>
+                </label> */}
                 <div className="flex justify-center mt-2">
                     <button className="bg-main px-6 py-2 rounded font-semibold text-white" onClick={handleKonfirm}>Konfirmasi</button>
                 </div>

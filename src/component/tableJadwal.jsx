@@ -20,7 +20,7 @@ const TableJadwal = ({ setHide,setAction,setHideModal,setId }) => {
             <thead className="border-[1px] border-slate-400 bg-main text-white">
                 <tr>
                     <th>Jam</th>
-                    <th>Volume</th>
+                    {/* <th>Volume</th> */}
                     <th>aksi</th>
                 </tr>
             </thead>
@@ -29,7 +29,7 @@ const TableJadwal = ({ setHide,setAction,setHideModal,setId }) => {
                     scheduleData.map((item) => (
                         <tr key={item.id}>
                             <td className="p-2 text-center font-medium">{moment(item.time).format("HH:mm")}</td>
-                            <td className="p-2 text-center font-medium">{item.volume}</td>
+                            {/* <td className="p-2 text-center font-medium">{item.volume}</td> */}
                             <td className="p-2">
                                 <div className="flex gap-1 justify-center">
                                     <button className="bg-red-600 aspect-square rounded p-1 w-10 text-white" onClick={()=>deleteData(item.id)}><FontAwesomeIcon className="text-lg" icon={faTrash} /></button>
