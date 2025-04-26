@@ -11,7 +11,7 @@ const ScheduleProvider = ({ children }) => {
     const [scheduleData, setScheduleData] = useState([]);
     const [editSchedule, setEditSchedule] = useState([]);
     const [inputTime, setInputTime] = useState("");
-    const [inputVolume, setInputVolume] = useState("");
+    // const [inputVolume, setInputVolume] = useState("");
     const fetchData = async () => {
         const initialScheduleData = await fetchScheduleData();
         setScheduleData(initialScheduleData);
@@ -37,9 +37,9 @@ const ScheduleProvider = ({ children }) => {
     }
     const addSchedule = async () => {
         const convertTime = convertTimestampz(inputTime)
-        await insertScheduleData(convertTime, inputVolume)
+        await insertScheduleData(convertTime, "Besar")
         setInputTime("");
-        setInputVolume("");
+        // setInputVolume("");
         // fetchData()
         // return () => {
         //     unsubscribeSchedule();
@@ -47,9 +47,9 @@ const ScheduleProvider = ({ children }) => {
     }
     const updateSchedule = async () => {
         const convertTime = convertTimestampz(inputTime)
-        await updateScheduleData(convertTime, inputVolume, editSchedule[2])
+        await updateScheduleData(convertTime, "Besar", editSchedule[2])
         setInputTime("");
-        setInputVolume("");
+        // setInputVolume("");
         // fetchData()
         // return () => {
         //     unsubscribeSchedule();
@@ -72,7 +72,7 @@ const ScheduleProvider = ({ children }) => {
     return (
         <ScheduleContext.Provider value={{
             scheduleData, setScheduleData, editSchedule, setEditSchedule,deleteSchedule,
-            addSchedule, updateSchedule, inputTime, setInputTime, inputVolume, setInputVolume
+            addSchedule, updateSchedule, inputTime, setInputTime,
         }}>
             {children}
         </ScheduleContext.Provider>
