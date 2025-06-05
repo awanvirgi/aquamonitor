@@ -10,10 +10,10 @@
 #define LED 2
 
 // Supabase credentials
-#define supabaseUrl "isi dengan url supabase"
-#define supabaseKey "isi dengan anon key supabase"
-#define tableName "feeder_schedule"
-#define tableName2 "sensor"
+#define supabaseUrl "Isi dengan URL Supabase"
+#define supabaseKey "Isi dengan SupabaseKey"
+#define tableName "Isi Tabel Makan"
+#define tableName2 "Isi Tabel Sensor"
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", 25200, 60000);
@@ -206,3 +206,5 @@ void transferData() {
   http.POST(requestBody);
   http.end();
 }
+
+
